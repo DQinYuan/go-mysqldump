@@ -267,9 +267,9 @@ func TestDumpOk(t *testing.T) {
 	mock.ExpectQuery("^SELECT (.+) FROM Test_Table$").WillReturnRows(createTableValueRows)
 
 	dumper := &Dumper{
-		db:     db,
-		format: "test_format",
-		dir:    "/tmp/",
+		db:   db,
+		name: "test_format.sql",
+		dir:  "/tmp/",
 	}
 
 	path, err := dumper.Dump(false)

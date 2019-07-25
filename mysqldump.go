@@ -8,9 +8,9 @@ import (
 
 // Dumper represents a database.
 type Dumper struct {
-	db     *sql.DB
-	format string
-	dir    string
+	db   *sql.DB
+	name string
+	dir  string
 }
 
 /*
@@ -18,7 +18,7 @@ Creates a new dumper.
 
 	db: Database that will be dumped (https://golang.org/pkg/database/sql/#DB).
 	dir: Path to the directory where the dumps will be stored.
-	format: Format to be used to name each dump file. Uses time.Time.Format (https://golang.org/pkg/time/#Time.Format). format appended with '.sql'.
+	name: Format to be used to name each dump file. Uses time.Time.Format (https://golang.org/pkg/time/#Time.Format). name appended with '.sql'.
 */
 func Register(db *sql.DB, dir, format string) (*Dumper, error) {
 	if !isDir(dir) {
@@ -26,9 +26,9 @@ func Register(db *sql.DB, dir, format string) (*Dumper, error) {
 	}
 
 	return &Dumper{
-		db:     db,
-		format: format,
-		dir:    dir,
+		db:   db,
+		name: format,
+		dir:  dir,
 	}, nil
 }
 

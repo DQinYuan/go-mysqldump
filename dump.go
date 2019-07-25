@@ -81,12 +81,11 @@ UNLOCK TABLES;
 
 // Creates a MYSQL Dump based on the options supplied through the dumper.
 func (d *Dumper) Dump(concise bool) (string, error) {
-	name := time.Now().Format(d.format)
-	p := path.Join(d.dir, name+".sql")
+	p := path.Join(d.dir, d.name)
 
 	// Check dump directory
 	if e, _ := exists(p); e {
-		return p, errors.New("Dump '" + name + "' already exists.")
+		return p, errors.New("Dump '" + d.name + "' already exists.")
 	}
 
 	// Create .sql file
