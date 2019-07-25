@@ -67,8 +67,20 @@ UNLOCK TABLES;
 -- Dump completed on {{ .CompleteTime }}
 `
 
+
+const conciseTmpl = `{{range .Tables}}
+DROP TABLE IF EXISTS {{ .Name }};
+{{ .SQL }};
+LOCK TABLES {{ .Name }} WRITE;
+{{ if .Values }}
+INSERT INTO {{ .Name }} VALUES {{ .Values }};
+{{ end }}
+UNLOCK TABLES;
+{{ end }}
+`
+
 // Creates a MYSQL Dump based on the options supplied through the dumper.
-func (d *Dumper) Dump() (string, error) {
+func (d *Dumper) Dump(concise bool) (string, error) {
 	name := time.Now().Format(d.format)
 	p := path.Join(d.dir, name+".sql")
 
@@ -115,7 +127,12 @@ func (d *Dumper) Dump() (string, error) {
 	data.CompleteTime = time.Now().String()
 
 	// Write dump to file
-	t, err := template.New("mysqldump").Parse(tmpl)
+	var t *template.Template
+	if concise {
+		t, err = template.New("mysqldump").Parse(conciseTmpl)
+	} else {
+		t, err = template.New("mysqldump").Parse(tmpl)
+	}
 	if err != nil {
 		return p, err
 	}

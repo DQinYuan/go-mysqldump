@@ -9,7 +9,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/JamesStewy/go-mysqldump"
+	"github.com/dqinyuan/go-mysqldump"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -38,7 +38,7 @@ func main() {
 	}
 
 	// Dump database to file
-	resultFilename, err := dumper.Dump()
+	resultFilename, err := dumper.Dump(false)
 	if err != nil {
 		fmt.Println("Error dumping:", err)
 		return

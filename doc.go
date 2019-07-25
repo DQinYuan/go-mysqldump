@@ -10,7 +10,7 @@ This example uses the mymysql driver (example 7 https://github.com/ziutek/mymysq
     import (
     	"database/sql"
     	"fmt"
-    	"github.com/JamesStewy/go-mysqldump"
+    	"github.com/dqinyuan/go-mysqldump"
     	"github.com/ziutek/mymysql/godrv"
     	"time"
     )
@@ -34,7 +34,7 @@ This example uses the mymysql driver (example 7 https://github.com/ziutek/mymysq
         }
 
         // Dump database to file
-        err = dumper.Dump()
+        err = dumper.Dump(false)
         if err != nil {
         	fmt.Println("Error dumping:", err)
         	return
