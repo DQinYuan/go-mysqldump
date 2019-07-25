@@ -242,7 +242,7 @@ func createTableValues(db *sql.DB, name string) (string, error) {
 
 		for key, value := range data {
 			if value != nil && value.Valid {
-				dataStrings[key] = "'" + value.String + "'"
+				dataStrings[key] = "\"" + value.String + "\""
 			} else {
 				dataStrings[key] = "null"
 			}
