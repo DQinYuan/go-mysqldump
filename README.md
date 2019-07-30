@@ -1,6 +1,10 @@
 # Go MYSQL Dump
 Create MYSQL dumps in Go without the `mysqldump` CLI as a dependancy.
 
+I add a concise mode to only dump useful sql after fork.
+
+`dumper.Dump(true)`
+
 ### Simple Example
 ```go
 package main
